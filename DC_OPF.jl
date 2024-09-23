@@ -10,7 +10,7 @@ using GLPK  # Linear programming solver, can replace with other solvers like Gur
 G = 1:3  # Set of generators
 B = 1:4  # Set of buses
 L = [(1, 2), (2, 3), (3, 4)]  # Set of transmission lines
-
+# Power base unit is MW
 # Parameters
 c_g = Dict(1 => 20.0, 2 => 25.0, 3 => 30.0)  # Cost of generation for each generator
 P_g_min = Dict(1 => 5.0, 2 => 5.0, 3 => 5.0)  # Minimum generation limits
