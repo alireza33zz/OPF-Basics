@@ -1,5 +1,8 @@
 # In this code DC Optimum Power Flow is implemented.
 
+clearconsole()
+
+
 using JuMP
 using GLPK  # Linear programming solver, can replace with other solvers like Gurobi, CPLEX
 
@@ -64,3 +67,8 @@ else
     println("The model did not find an optimal solution.")
 end
 
+
+
+function clearconsole()
+    print("\u001b[2J\u001b[H")
+end
