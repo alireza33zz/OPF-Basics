@@ -6,6 +6,7 @@ clearconsole()
 using JuMP
 using GLPK  # Linear programming solver, can replace with other solvers like Gurobi, CPLEX
 using Statistics
+using Crayons
 
 # Define sets
 G = [1,4]  # Set of generators
@@ -69,13 +70,17 @@ end
 # Solve the model
 optimize!(model)
 
-# Check the solution status
+# Define Crayons for styling text
+bold_green = Crayon(foreground = :green, bold = true)
+bold_red = Crayon(foreground = :red, bold = true)
+
+# Check the solution status and print results
 if termination_status(model) == MOI.OPTIMAL
-    println("Optimal solution found!")
+    println(bold_green("Optimal solution found!"))
     println("Objective Value: ", objective_value(model))
-    println("Generation Output: ", value.(P_g))
-    println("Line Flows: ", value.(P_ij))
-    println("Voltage Angles: ", value.(θ))
+    println("Generation Output:\n", join(value.(P_g), "\n"))
+    println("Line Flows:\n", join(value.(P_ij), "\n"))
+    println("Voltage Angles:\n", join(value.(θ), "\n"))
 else
-    println("The model did not find an optimal solution.")
+    println(bold_red("The model did not find an optimal solution."))
 end
