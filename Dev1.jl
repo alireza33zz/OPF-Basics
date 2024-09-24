@@ -8,21 +8,21 @@ using GLPK  # Linear programming solver, can replace with other solvers like Gur
 using Statistics
 
 # Define sets
-G = 1:3  # Set of generators
-B = 1:4  # Set of buses
-L = [(1, 2), (2, 3), (3, 4)]  # Set of transmission lines
-# Power base unit is MW
+G = [1,4]  # Set of generators
+B = 1:6  # Set of buses
+L = [(1, 2), #=(2, 3),=# (2,5), (3, 4), (3, 6)]  # Set of transmission lines
+# Power base unit is kW
 # Parameters
-c_g = Dict(1 => 20.0, 2 => 25.0, 3 => 30.0)  # Cost of generation for each generator
-P_g_min = Dict(1 => 8, 2 => 8, 3 => 8)  # Minimum generation limits
-P_g_max = Dict(1 => 50.0, 2 => 60.0, 3 => 40.0)  # Maximum generation limits
+c_g = Dict(1 => 20.0, 4 => 5.0)  # Cost of generation for each generator
+P_g_min = Dict(1 => 8, 4 => 8)  # Minimum generation limits
+P_g_max = Dict(1 => 120.0, 4 => 120.0)  # Maximum generation limits
 
-P_d = Dict(1 => 0.0, 2 => 40.0, 3 => 20.0, 4 => 30.0)  # Power demand at each bus
+P_d = Dict(1 => 0.0, 2 => 40.0, 3 => 20.0, 4 => 0.0, 5 => 30.0, 6 => 30.0)  # Power demand at each bus
 Line_bias = mean([P_d[b] for b in B])
 # Line parameters
-b_ij = Dict((1, 2) => 0.1, (2, 3) => 0.15, (3, 4) => 0.1)  # Susceptance of each line
-P_ij_min = Dict((1, 2) => -50.0, (2, 3) => -45.0, (3, 4) => -40.0)  # Min power flow limits
-P_ij_max = Dict((1, 2) => 50.0, (2, 3) => 45.0, (3, 4) => 40.0)  # Max power flow limits
+b_ij = Dict((1, 2) => 0.1, #=(2, 3) => 0.15,=# (2,5) => 0.1, (3, 4) => 0.1, (3, 6) => 0.1)  # Susceptance of each line
+P_ij_min = Dict((1, 2) => -80.0, #=(2, 3) => -45.0,=# (2,5) => -40, (3, 4) => -60.0, (3, 6) => -40)  # Min power flow limits
+P_ij_max = Dict((1, 2) => 80.0, #=(2, 3) => 45.0,=# (2,5) => 40, (3, 4) => 60.0, (3, 6) => 40)  # Max power flow limits
 
 # Create the optimization model
 model = Model(GLPK.Optimizer)
