@@ -61,7 +61,7 @@ end
 @constraint(model, [l in L], P_ij_min[l] <= P_ij[l] <= P_ij_max[l])
 
 # DC power flow constraints
-@constraint(model, [l in L], P_ij[l] == -b_ij[l] * (θ[l[1]] - θ[l[2]]) * 10e6)
+@constraint(model, [l in L], P_ij[l] == -b_ij[l] * (θ[l[1]] - θ[l[2]]) * 10e3)
 
 # Set reference angle to zero (to avoid singularities)
 @constraint(model, θ[1] == 0)
