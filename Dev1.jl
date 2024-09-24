@@ -79,6 +79,3 @@ if termination_status(model) == MOI.OPTIMAL
 else
     println("The model did not find an optimal solution.")
 end
-
-
-
